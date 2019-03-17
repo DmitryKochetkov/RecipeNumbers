@@ -16,7 +16,7 @@ public class RecipeNumber {
         int digit1;
         int digit2;
         int n = 0;
-        String s;
+        String s = "";
 
         do {
             int buf = num % 1000;
@@ -25,28 +25,34 @@ public class RecipeNumber {
             digit2 = buf / 100;
 
             if (digit2 > 0)
-                recipe += num2_masc[digit2 - 1];
+                s += num2_masc[digit2 - 1];
 
             if (digit1 == 1 && digit0 == 0)
-                recipe += " " + num1[digit1 - 1];
+                s += " " + num1[digit1 - 1];
 
             if (digit1 == 1 && digit0 > 0)
                 if (digit0 > 1)
                     if (digit0 > 3)
-                        recipe += " " + num0_fem[digit0 - 1].substring(0, num0_fem[digit0 - 1].length() - 1) + "надцать";
-                    else recipe += " " + num0_fem[digit0 - 1] + "надцать";
-                else recipe += " " + num0_masc[digit0 - 1] + "надцать";
+                        s += " " + num0_fem[digit0 - 1].substring(0, num0_fem[digit0 - 1].length() - 1) + "надцать";
+                    else s += " " + num0_fem[digit0 - 1] + "надцать";
+                else if (n != 1)
+                    s += " " + num0_masc[digit0 - 1] + "надцать";
+                else s += " " + num0_fem[digit0 - 1];
             else {
                 if (digit1 > 1)
-                    recipe += " " + num1[digit1 - 1];
+                    s += " " + num1[digit1 - 1];
                 if (digit0 > 0)
-                    recipe += " " + num0_masc[digit0 - 1];
+                    if (n != 1)
+                    s += " " + num0_masc[digit0 - 1];
+                    else s += " " + num0_fem[digit0 - 1];
 
             }
             num /= 1000;
             if (n >= 1)
-            recipe += " " + degree[n - 1];
+                s += " " + degree[n - 1];
+            recipe = s.concat(" " + recipe);
             n++;
+            s = "";
         } while (num > 0);
 
         }
