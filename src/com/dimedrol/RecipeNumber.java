@@ -16,7 +16,7 @@ public class RecipeNumber {
         int digit1;
         int digit2;
 
-        for (int i = 0; i < Integer.toString(num).length() / 3; i++) {
+        do {
             int buf = num % 1000;
             digit0 = buf % 10;
             digit1 = buf / 10 % 10;
@@ -25,15 +25,24 @@ public class RecipeNumber {
             if (digit2 > 0)
                 recipe += num2_masc[digit2 - 1];
 
+            if (digit1 == 1 && digit0 == 0)
+                recipe += " " + num1[digit1 - 1];
+
             if (digit1 == 1 && digit0 > 0)
-                recipe += " " + num0_masc[digit0 - 1] + "надцать";
+                if (digit0 > 1)
+                    if (digit0 > 3)
+                        recipe += " " + num0_fem[digit0 - 1].substring(0, num0_fem[digit0 - 1].length() - 1) + "надцать";
+                    else recipe += " " + num0_fem[digit0 - 1] + "надцать";
+                else recipe += " " + num0_masc[digit0 - 1] + "надцать";
             else {
                 if (digit1 > 1)
                     recipe += " " + num1[digit1 - 1];
                 if (digit0 > 0)
                     recipe += " " + num0_masc[digit0 - 1];
-                num /= 1000;
+
             }
+            num /= 1000;
+        } while (num > 0);
+
         }
     }
-}
