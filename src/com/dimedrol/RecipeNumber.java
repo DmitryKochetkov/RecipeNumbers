@@ -15,6 +15,8 @@ public class RecipeNumber {
         int digit0;
         int digit1;
         int digit2;
+        int n = 0;
+        String s;
 
         do {
             int buf = num % 1000;
@@ -42,6 +44,9 @@ public class RecipeNumber {
 
             }
             num /= 1000;
+            if (n >= 1)
+            recipe += " " + degree[n - 1];
+            n++;
         } while (num > 0);
 
         }
